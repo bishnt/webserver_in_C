@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include <string.h>
 
+#include "http.h"
+
 typedef struct sockadrr_in{
     sa_family_t family;
     in_port_t port;
@@ -15,7 +17,10 @@ typedef struct sockadrr_in{
 
 int main(){
     int server_fd; //server file descriptor
-    struct sockadrr_in sockaddress;
+    struct sockadrr_in sockaddress;//server info
+    struct sockadrr_in clientaddress;//client info
+    socklen_t client_len = sizeof(clientaddress);//size of client info
+
 
     //initialize socket
     server_fd = socket(AF_INET, SOCK_STREAM, 0); // AF_INET for IPv6, SOCK_STREAM for TCP, 0 for default protocol
@@ -29,13 +34,13 @@ int main(){
     }
 
     memset(&sockaddress, 0, sizeof(sockaddress)); //blocks the memory location
-    //defining the socket
+    //defining the server info
     sockaddress.family = AF_INET;
     sockaddress.port = htons(8000);
     sockaddress.sin_addr.s_addr = INADDR_ANY;
 
-    //associate socket with local info
-    bind(server_fd, (struct sockadrr_in*)&sockaddress, sizeof(sockaddress));
+    //associate socket initialization with the server info
+    bind(server_fd, (struct sockaddr*)&sockaddress, sizeof(sockaddress));
 
     //make the socket listen to the port
 
@@ -49,6 +54,22 @@ int main(){
         printf("listening to the port");
     }
 
+    //Define the address of Client in the sockaddr struct
+    while (1) {
+        int client_fd = accept(server_fd, (struct sockaddr *)&clientaddress, &client_len);   
+        if (client_fd == -1) {
+            perror("Accept failed");
+            continue;
+        } 
+        else{
+            handle_request(client_fd);
+            continue;
+        }
+        close(client_fd);
+    }
+
+
     close(server_fd);
+
     return 0;
 }
