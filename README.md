@@ -164,7 +164,6 @@ void handle_new_route(int client_fd);
 
 Currently supports:
 - ✅ `GET` requests
-- ❌ `POST`, `PUT`, `DELETE` (returns 405 Method Not Allowed)
 
 ## 🐛 Error Handling
 
@@ -173,35 +172,6 @@ The server handles common HTTP errors:
 - **404 Not Found** - For missing static files
 - **405 Method Not Allowed** - For unsupported HTTP methods
 
-## 🔒 Security Considerations
-
-⚠️ **This is a learning project and not production-ready**
-
-Current limitations:
-- No input validation or sanitization
-- No protection against directory traversal attacks
-- No authentication or authorization
-- No HTTPS support
-- Limited error handling
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
 ## 🙋‍♂️ Author
 
 **Snuggbun** - *A person trying to be someone*
-
----
-
-⭐ **Star this repository if you found it helpful!**
-
-*Built with ❤️ and lots of C programming*
