@@ -171,7 +171,3 @@ The server handles common HTTP errors:
 
 - **404 Not Found** - For missing static files
 - **405 Method Not Allowed** - For unsupported HTTP methods
-
-## 🙋‍♂️ Author
-
-**Snuggbun** - *A person trying to be someone*
