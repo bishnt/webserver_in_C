@@ -9,6 +9,6 @@ typedef struct {
 } HttpRequest;
 
 void handle_request(int client_fd);
-void parse_request(const char*raw, HttpRequest* req);
+void parse_request(char*raw, HttpRequest* req);
 
 #endif

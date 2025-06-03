@@ -8,7 +8,7 @@
 
 #include "http.h"
 
-typedef struct sockadrr_in{
+struct sockadrr_in{
     sa_family_t family;
     in_port_t port;
     struct in_addr sin_addr;

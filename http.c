@@ -5,8 +5,19 @@
 #include<string.h>
 #include<unistd.h>
 
-void parse_request(const char*raw, HttpRequest* req){
-    
+void parse_request(char*raw, HttpRequest* req){
+
+      // Get the first line of the request
+      char *line = strtok(raw, "\r\n");
+
+      if (line == NULL) return;
+  
+      // Tokenization process
+      char *method = strtok(line, " ");
+      char *path = strtok(NULL, " ");
+  
+      if (method) strncpy(req->method, method, sizeof(req->method) - 1);
+      if (path) strncpy(req->path, path, sizeof(req->path) - 1);
 }
 
 void handle_request(int client_fd) {
@@ -18,6 +29,4 @@ void handle_request(int client_fd) {
     parse_request(buffer, &req);
 
     route_request(client_fd, &req); ////defined in router.c
-
-
 }
